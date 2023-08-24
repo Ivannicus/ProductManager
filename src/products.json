@@ -1,0 +1,92 @@
+[
+  {
+    "id": 1,
+    "title": "Jabón",
+    "description": "Dove",
+    "price": "Sin imagen",
+    "thumbnail": 300,
+    "code": "abc123",
+    "stock": 25
+  },
+  {
+    "id": 2,
+    "title": "Shampoo",
+    "description": "Head and Shoulders",
+    "price": "Sin imagen",
+    "thumbnail": 400,
+    "code": "abc124",
+    "stock": 20
+  },
+  {
+    "id": 3,
+    "title": "Pasta de Dientes",
+    "description": "Colgate",
+    "price": "Sin imagen",
+    "thumbnail": 250,
+    "code": "abc125",
+    "stock": 22
+  },
+  {
+    "id": 4,
+    "title": "Cepillo de Dientes",
+    "description": "Colgate",
+    "price": "Sin imagen",
+    "thumbnail": 100,
+    "code": "abc126",
+    "stock": 35
+  },
+  {
+    "id": 5,
+    "title": "Enjuague Bucal",
+    "description": "Oral-B",
+    "price": "Sin imagen",
+    "thumbnail": 600,
+    "code": "abc127",
+    "stock": 10
+  },
+  {
+    "id": 6,
+    "title": "Hilo Dental",
+    "description": "Ahumada",
+    "price": "Sin imagen",
+    "thumbnail": 220,
+    "code": "abc128",
+    "stock": 27
+  },
+  {
+    "id": 7,
+    "title": "Esponja Corporal",
+    "description": "Líder",
+    "price": "Sin imagen",
+    "thumbnail": 150,
+    "code": "abc129",
+    "stock": 15
+  },
+  {
+    "id": 8,
+    "title": "Bálsamo",
+    "description": "Tío Nacho",
+    "price": "Sin imagen",
+    "thumbnail": 500,
+    "code": "abc130",
+    "stock": 11
+  },
+  {
+    "id": 9,
+    "title": "Desodorante",
+    "description": "Axe",
+    "price": "Sin imagen",
+    "thumbnail": 375,
+    "code": "abc131",
+    "stock": 14
+  },
+  {
+    "id": 10,
+    "title": "Crema Corporal",
+    "description": "Nutra",
+    "price": "Sin imagen",
+    "thumbnail": 850,
+    "code": "abc132",
+    "stock": 8
+  }
+]
