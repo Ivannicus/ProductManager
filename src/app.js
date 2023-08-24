@@ -32,22 +32,22 @@ app.get('/products', async (req, res) => {
         return res.send(productos);
     }
     productos.splice(parseInt(limit), productos.length - parseInt(limit));
-    return res.send(productos)
+    return res.send(productos);
 })
 
 // Obtenemos un objeto puntual ocupando la función getProductById de la clase Product Manager
 app.get("/products/:pid", async(req, res) => {
     
-    let idProducto = parseInt(req.params.pid)
+    let idProducto = parseInt(req.params.pid);
     let producto = await PM.getProductById(idProducto);
 
     if (!producto) {
-        return res.send(`El producto id: ${idProducto} no existe`)
+        return res.send(`El producto id: ${idProducto} no existe`);
     }
     res.send(producto);
 })
 
 
 app.listen(8080, () => {
-    console.log('Servidor corriendo en el puerto 8080')
+    console.log('Servidor corriendo en el puerto 8080');
 })
