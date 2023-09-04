@@ -2,91 +2,131 @@
   {
     "id": 1,
     "title": "Jabón",
-    "description": "Dove",
-    "price": "Sin imagen",
-    "thumbnail": 300,
-    "code": "abc123",
-    "stock": 25
+    "description": "Jabón marca Dove",
+    "code": "a1",
+    "price": 1300,
+    "status": true,
+    "stock": 25,
+    "category": "Higiene",
+    "thumbnail": [
+      "Sin imagen"
+    ]
   },
   {
     "id": 2,
     "title": "Shampoo",
-    "description": "Head and Shoulders",
-    "price": "Sin imagen",
-    "thumbnail": 400,
-    "code": "abc124",
-    "stock": 20
-  },
-  {
-    "id": 3,
-    "title": "Pasta de Dientes",
-    "description": "Colgate",
-    "price": "Sin imagen",
-    "thumbnail": 250,
-    "code": "abc125",
-    "stock": 22
+    "description": "Shampoo marca Head and Shoulders",
+    "code": "a2",
+    "price": 2500,
+    "status": true,
+    "stock": 30,
+    "category": "Higiene",
+    "thumbnail": [
+      "Sin imagen"
+    ]
   },
   {
     "id": 4,
     "title": "Cepillo de Dientes",
-    "description": "Colgate",
-    "price": "Sin imagen",
-    "thumbnail": 100,
-    "code": "abc126",
-    "stock": 35
+    "description": "Cepillo dental marca Colgate",
+    "code": "a4",
+    "price": 800,
+    "status": true,
+    "stock": 23,
+    "category": "Higiene",
+    "thumbnail": [
+      "Sin imagen"
+    ]
   },
   {
     "id": 5,
     "title": "Enjuague Bucal",
-    "description": "Oral-B",
-    "price": "Sin imagen",
-    "thumbnail": 600,
-    "code": "abc127",
-    "stock": 10
+    "description": "Enjuague marca Oral-B",
+    "code": "a5",
+    "price": 3500,
+    "status": true,
+    "stock": 28,
+    "category": "Higiene",
+    "thumbnail": [
+      "Sin imagen"
+    ]
   },
   {
     "id": 6,
     "title": "Hilo Dental",
-    "description": "Ahumada",
-    "price": "Sin imagen",
-    "thumbnail": 220,
-    "code": "abc128",
-    "stock": 27
+    "description": "Hilo dental marca Ahumada",
+    "code": "a6",
+    "price": 1850,
+    "status": true,
+    "stock": 11,
+    "category": "Higiene",
+    "thumbnail": [
+      "Sin imagen"
+    ]
   },
   {
     "id": 7,
     "title": "Esponja Corporal",
-    "description": "Líder",
-    "price": "Sin imagen",
-    "thumbnail": 150,
-    "code": "abc129",
-    "stock": 15
+    "description": "Esponja marca Líder",
+    "code": "a7",
+    "price": 350,
+    "status": true,
+    "stock": 8,
+    "category": "Higiene",
+    "thumbnail": [
+      "Sin imagen"
+    ]
   },
   {
     "id": 8,
     "title": "Bálsamo",
-    "description": "Tío Nacho",
-    "price": "Sin imagen",
-    "thumbnail": 500,
-    "code": "abc130",
-    "stock": 11
+    "description": "Balsamo cabello marca Tío Nacho",
+    "code": "a8",
+    "price": 4500,
+    "status": true,
+    "stock": 24,
+    "category": "Higiene",
+    "thumbnail": [
+      "Sin imagen"
+    ]
   },
   {
     "id": 9,
     "title": "Desodorante",
-    "description": "Axe",
-    "price": "Sin imagen",
-    "thumbnail": 375,
-    "code": "abc131",
-    "stock": 14
+    "description": "Desorante corporal marca Axe",
+    "code": "a9",
+    "price": 2500,
+    "status": true,
+    "stock": 30,
+    "category": "Higiene",
+    "thumbnail": [
+      "Sin imagen"
+    ]
   },
   {
     "id": 10,
     "title": "Crema Corporal",
-    "description": "Nutra",
-    "price": "Sin imagen",
-    "thumbnail": 850,
-    "code": "abc132",
-    "stock": 8
+    "description": "Crema corporal marca Nutra",
+    "code": "a10",
+    "price": 6350,
+    "status": true,
+    "stock": 45,
+    "category": "Higiene",
+    "thumbnail": [
+      "Sin imagen"
+    ]
+  },
+  {
+    "id": 3,
+    "title": "Pasta de Dientes Super Premium",
+    "description": "Pasta dental marca Sensodine",
+    "code": "a3",
+    "price": 2300,
+    "status": true,
+    "stock": 12,
+    "category": "Higiene",
+    "thumbnail": [
+      "Sin imagen"
+    ]
   }
 ]

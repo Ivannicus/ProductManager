@@ -10,56 +10,53 @@ export default class ProductManager {
     constructor() {
         this.path = __dirname;
         this.#products = [];
+        this.carts = [];
     }
 
-    async addProduct(title, description, price, thumbnail, code, stock) {
-        if (title, description, price, thumbnail, code, stock === "" || title, description, price, thumbnail, code, stock === undefined) {
-            console.log("You must fill all the information to add a new product")
-            return
-        } else{
-            try {
-                const products = await fs.readFile(`${this.path}/products.json`, 'utf-8')
-                this.#products = JSON.parse(products)
-             
-                if (this.#products.find(prod => prod['code'] === code) === undefined) {
+    async addProduct(title, description, code, price, status, stock, category, thumbnail) {
+        try {
+            const products = await fs.readFile(`${this.path}/products.json`, 'utf-8')
+            this.#products = JSON.parse(products)
+
+            if (this.#products.find(prod => prod['code'] === code) === undefined) {
 
                 const createdProduct = {
                     id: Object.values(this.#products[this.#products.length - 1])[0] + 1,
                     title,
                     description,
-                    price,
-                    thumbnail,
                     code,
-                    stock
+                    price,
+                    status,
+                    stock,
+                    category,
+                    thumbnail,
                 }
                 this.#products.push(createdProduct)
                 await fs.writeFile(`${this.path}/products.json`, JSON.stringify(this.#products, null, 2), 'utf-8');
-                return
+                return createdProduct
             } else {
-                return
+                return (`The product code ${code} already exists`)
             }
 
-        } catch(error) {
-            try {
-                const createdProduct = {
-                    id: 1,
-                    title,
-                    description,
-                    price,
-                    thumbnail,
-                    code,
-                    stock
-                }
-                this.#products.push(createdProduct);
-                await fs.writeFile(`${this.path}/products.json`, JSON.stringify(this.#products, null, 2), 'utf-8');
-                console.log("Product name: ", title , " created sucessfully\n")
-            } catch (error) {
-                console.error(error)
+        } catch {
+
+            const createdProduct = {
+                id: 1,
+                title,
+                description,
+                code,
+                price,
+                status,
+                stock,
+                category,
+                thumbnail,
             }
+            this.#products.push(createdProduct);
+            await fs.writeFile(`${this.path}/products.json`, JSON.stringify(this.#products, null, 2), 'utf-8');
+            return createdProduct
         }
-    } 
 
-}
+    }
 
     async getProducts() {
         try {
@@ -67,23 +64,17 @@ export default class ProductManager {
             this.#products = JSON.parse(listJSON);
             return this.#products
         } catch {
-            console.log("There is no products on the list yet")
+            return
         }
     }
     async getProductById(id) {
         try { 
             let listJSON = await fs.readFile('./products.json', 'utf-8');
             this.#products = JSON.parse(listJSON);
-
             let searchedProduct = this.#products.find(prod => prod['id'] === id);
-
-            if (searchedProduct !== undefined){
-                return searchedProduct
-            } else{
-                return 
-            }            
+            return searchedProduct   
         } catch{
-            console.log("There is no products on the list yet")
+            return
         }
     }
 
@@ -98,26 +89,21 @@ export default class ProductManager {
             if (deletedProduct !== undefined){
                 this.#products.splice(index,1);
                 await fs.writeFile(`${this.path}/products.json`, JSON.stringify(this.#products, null, 2), 'utf-8');
-                console.log("The product id: ", id, " deleted successfully")
-                return
+                return deletedProduct
             } else {
-                console.log("There is no product to delete with the id: ", id)
+                return `There is no product to delete with the id: ${id}`
             }
         }
         catch {
-            console.log("There is no products on the list yet")
+            return "There is no products on the list yet"
         }
     }
 
-    async updateProduct(id,  title, description, price, thumbnail, code, stock){
+    async updateProduct(id, title, description, code, price, status, stock, category, thumbnail){
         try {
             let listJSON = await fs.readFile('./products.json', 'utf-8');
             this.#products = JSON.parse(listJSON);
 
-            if (title, description, price, thumbnail, code, stock === "" || title, description, price, thumbnail, code, stock === undefined) {
-                console.log("You must fill all the information to add a new product")
-                return
-            } else {
                 let productToUpdate = this.#products.find(prod => prod['id'] === id);
                 if (productToUpdate !== undefined){
                     let index = this.#products.indexOf(productToUpdate)
@@ -127,24 +113,117 @@ export default class ProductManager {
                         id,
                         title,
                         description,
-                        price,
-                        thumbnail,
                         code,
-                        stock
+                        price,
+                        status,
+                        stock,
+                        category,
+                        thumbnail,
                     }
     
                     this.#products.push(productToUpdate)
                     await fs.writeFile(`${this.path}/products.json`, JSON.stringify(this.#products, null, 2), 'utf-8');
-                    console.log("Product id: ", id, " updated successfully");
-                    return
+                    return productToUpdate
                 } else{
-                    console.log("Product id: ", id, " is not on the list")
+                    return `Product id: ${id} is not on the list`
                 }
  
-            }
+            
         }
         catch {
-            console.log("There is no products on the list yet")
+           return "There is no products on the list yet"
+        }
+    }
+
+    async createCart() {
+
+        try {
+            const carts = await fs.readFile(`${this.path}/carts.json`, 'utf-8')
+            this.carts = JSON.parse(carts)
+            const newCart = {
+                id: this.carts.length + 1,
+                products: []
+            }
+            this.carts.push(newCart);
+            await fs.writeFile(`${this.path}/carts.json`, JSON.stringify(this.carts, null, 2), 'utf-8');
+            return `New cart created. Cart id: ${newCart.id}`
+
+        } catch {
+            const newCart = {
+                id: 1,
+                products: []
+            }
+            this.carts.push(newCart);
+            await fs.writeFile(`${this.path}/carts.json`, JSON.stringify(this.carts, null, 2), 'utf-8');
+            return `New cart created. Cart id: ${newCart.id}`
+        }
+
+    }
+
+    async getCartsById(id) {
+        try { 
+            let cartsJSON = await fs.readFile('./carts.json', 'utf-8');
+
+            this.carts = JSON.parse(cartsJSON);
+
+            let searchedCart = this.carts.find(cart => cart['id'] === id);
+
+            if (searchedCart !== undefined){
+                return searchedCart
+            } else{
+                return `The cart id: ${id} doesn't exist`
+            }            
+        } catch{
+            return "There are no carts created yet"
+        }
+    }
+
+    async addProductsToCart(idCart, idProduct) {
+        try { 
+            let cartsJSON = await fs.readFile('./carts.json', 'utf-8');
+            let productsJSON = await fs.readFile('./products.json', 'utf-8');
+
+            this.#products = JSON.parse(productsJSON);
+            this.carts = JSON.parse(cartsJSON);
+
+            let searchedProduct = this.#products.find(prod => prod['id'] === idProduct);
+            let searchedCart = this.carts.find(cart => cart['id'] === idCart);
+            let cartIndex = this.carts.findIndex(cart => cart['id'] === idCart);
+
+            
+            if (cartIndex !== -1 && searchedProduct !== undefined){
+                this.carts.splice(cartIndex,1);
+                let indexProdinCart = searchedCart.products.findIndex(prod => prod['id'] === idProduct);
+
+                if (indexProdinCart === -1){
+                    searchedCart.products.push(
+                        {
+                            id: idProduct,
+                            quantity: 1,
+                        }
+                    )
+                    
+                    this.carts.push(searchedCart)
+                    await fs.writeFile(`${this.path}/carts.json`, JSON.stringify(this.carts, null, 2), 'utf-8');
+                    return searchedCart
+
+                } else{
+                    searchedCart.products[indexProdinCart].quantity ++;
+                    this.carts.push(searchedCart)
+                    await fs.writeFile(`${this.path}/carts.json`, JSON.stringify(this.carts, null, 2), 'utf-8');
+                    return searchedCart
+                }
+            } else{
+                if (cartIndex === -1 && searchedProduct === undefined){
+                    return `Both IDs are incorrect (idCart = ${idCart}, idProduct = ${idProduct})`
+                } else if (cartIndex === -1){
+                    return `Cart ID: ${idCart} doesn't exists`
+                } else {
+                    return `Product ID: ${idProduct} doesn't exists`
+                }
+            }            
+        } catch{
+            return "There is no products on the list yet"
         }
     }
 }

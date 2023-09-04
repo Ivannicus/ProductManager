@@ -5,47 +5,30 @@ const app = express()
 import ProductManager from './ProductManager.js';
 const PM = new ProductManager;
 
+app.use(express.json());
+app.use(express.urlencoded({extended: true}));
+
+import productsRouter from './routes/products.js';
+import cartsRouter from './routes/carts.js';
+app.use('/api/products', productsRouter);
+app.use('/api/carts', cartsRouter);
+
 (async () => {
     try {
-        await PM.addProduct("Jabón", "Dove", "Sin imagen", 300, "abc123", 25);
-        await PM.addProduct("Shampoo", "Head and Shoulders", "Sin imagen", 400, "abc124", 20);
-        await PM.addProduct("Pasta de Dientes", "Colgate", "Sin imagen", 250, "abc125", 22);
-        await PM.addProduct("Cepillo de Dientes", "Colgate", "Sin imagen", 100, "abc126", 35);
-        await PM.addProduct("Enjuague Bucal", "Oral-B", "Sin imagen", 600, "abc127", 10);
-        await PM.addProduct("Hilo Dental", "Ahumada", "Sin imagen", 220, "abc128", 27);
-        await PM.addProduct("Esponja Corporal", "Líder", "Sin imagen", 150, "abc129", 15);
-        await PM.addProduct("Bálsamo", "Tío Nacho", "Sin imagen", 500, "abc130", 11);
-        await PM.addProduct("Desodorante", "Axe", "Sin imagen", 375, "abc131", 14);
-        await PM.addProduct("Crema Corporal", "Nutra", "Sin imagen", 850, "abc132", 8);
+        await PM.addProduct("Jabón", "Jabón marca Dove", "a1", 1300, true, 25, "Higiene", ["Sin imagen"]);
+        await PM.addProduct("Shampoo", "Shampoo marca Head and Shoulders", "a2", 2500, true, 30, "Higiene", ["Sin imagen"]);
+        await PM.addProduct("Pasta de Dientes", "Pasta dental marca Colgate", "a3", 2300, true, 12, "Higiene", ["Sin imagen"]);
+        await PM.addProduct("Cepillo de Dientes", "Cepillo dental marca Colgate", "a4", 800, true, 23, "Higiene", ["Sin imagen"]);
+        await PM.addProduct("Enjuague Bucal", "Enjuague marca Oral-B", "a5", 3500, true, 28, "Higiene", ["Sin imagen"]);
+        await PM.addProduct("Hilo Dental", "Hilo dental marca Ahumada", "a6", 1850, true, 11, "Higiene", ["Sin imagen"]);
+        await PM.addProduct("Esponja Corporal", "Esponja marca Líder", "a7", 350, true, 8, "Higiene", ["Sin imagen"]);
+        await PM.addProduct("Bálsamo", "Balsamo cabello marca Tío Nacho", "a8", 4500, true, 24, "Higiene", ["Sin imagen"]);
+        await PM.addProduct("Desodorante", "Desorante corporal marca Axe", "a9", 2500, true, 30, "Higiene", ["Sin imagen"]);
+        await PM.addProduct("Crema Corporal", "Crema corporal marca Nutra", "a10", 6350, true, 45, "Higiene", ["Sin imagen"]);
     } catch (error){
         console.error(error)
     }
 }) ();
-
-// Definimos la obtención de productos ocupando la función del método PM y asignandole el límite por Query
-app.get('/products', async (req, res) => {
-
-    let productos = await PM.getProducts();
-
-    let limit = req.query.limit;
-    if(!limit){
-        return res.send(productos);
-    }
-    productos.splice(parseInt(limit), productos.length - parseInt(limit));
-    return res.send(productos);
-})
-
-// Obtenemos un objeto puntual ocupando la función getProductById de la clase Product Manager
-app.get("/products/:pid", async(req, res) => {
-    
-    let idProducto = parseInt(req.params.pid);
-    let producto = await PM.getProductById(idProducto);
-
-    if (!producto) {
-        return res.send(`El producto id: ${idProducto} no existe`);
-    }
-    res.send(producto);
-})
 
 
 app.listen(8080, () => {
