@@ -1,0 +1,132 @@
+[
+  {
+    "id": 1,
+    "title": "Jabón",
+    "description": "Jabón marca Dove",
+    "code": "a1",
+    "price": 1300,
+    "status": true,
+    "stock": 25,
+    "category": "Higiene",
+    "thumbnail": [
+      "Sin imagen"
+    ]
+  },
+  {
+    "id": 2,
+    "title": "Shampoo",
+    "description": "Shampoo marca Head and Shoulders",
+    "code": "a2",
+    "price": 2500,
+    "status": true,
+    "stock": 30,
+    "category": "Higiene",
+    "thumbnail": [
+      "Sin imagen"
+    ]
+  },
+  {
+    "id": 4,
+    "title": "Cepillo de Dientes",
+    "description": "Cepillo dental marca Colgate",
+    "code": "a4",
+    "price": 800,
+    "status": true,
+    "stock": 23,
+    "category": "Higiene",
+    "thumbnail": [
+      "Sin imagen"
+    ]
+  },
+  {
+    "id": 5,
+    "title": "Enjuague Bucal",
+    "description": "Enjuague marca Oral-B",
+    "code": "a5",
+    "price": 3500,
+    "status": true,
+    "stock": 28,
+    "category": "Higiene",
+    "thumbnail": [
+      "Sin imagen"
+    ]
+  },
+  {
+    "id": 6,
+    "title": "Hilo Dental",
+    "description": "Hilo dental marca Ahumada",
+    "code": "a6",
+    "price": 1850,
+    "status": true,
+    "stock": 11,
+    "category": "Higiene",
+    "thumbnail": [
+      "Sin imagen"
+    ]
+  },
+  {
+    "id": 7,
+    "title": "Esponja Corporal",
+    "description": "Esponja marca Líder",
+    "code": "a7",
+    "price": 350,
+    "status": true,
+    "stock": 8,
+    "category": "Higiene",
+    "thumbnail": [
+      "Sin imagen"
+    ]
+  },
+  {
+    "id": 8,
+    "title": "Bálsamo",
+    "description": "Balsamo cabello marca Tío Nacho",
+    "code": "a8",
+    "price": 4500,
+    "status": true,
+    "stock": 24,
+    "category": "Higiene",
+    "thumbnail": [
+      "Sin imagen"
+    ]
+  },
+  {
+    "id": 9,
+    "title": "Desodorante",
+    "description": "Desorante corporal marca Axe",
+    "code": "a9",
+    "price": 2500,
+    "status": true,
+    "stock": 30,
+    "category": "Higiene",
+    "thumbnail": [
+      "Sin imagen"
+    ]
+  },
+  {
+    "id": 10,
+    "title": "Crema Corporal",
+    "description": "Crema corporal marca Nutra",
+    "code": "a10",
+    "price": 6350,
+    "status": true,
+    "stock": 45,
+    "category": "Higiene",
+    "thumbnail": [
+      "Sin imagen"
+    ]
+  },
+  {
+    "id": 3,
+    "title": "Pasta de Dientes Super Premium",
+    "description": "Pasta dental marca Sensodine",
+    "code": "a3",
+    "price": 2300,
+    "status": true,
+    "stock": 12,
+    "category": "Higiene",
+    "thumbnail": [
+      "Sin imagen"
+    ]
+  }
+]
