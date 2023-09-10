@@ -1,5 +1,9 @@
 <div>
-   <h1>Buenas</h1>
+   <h1>Listado de Productos</h1>
+
+   <ol>
+      {{#each products}}
+         <li>{{this.title}} - {{this.description}} - {{this.code}} - {{this.price}} - {{this.stock}} - {{this.category}}</li>
+      {{/each}}
+   </ol>
 </div>
-<script src="/socket.io/socket.io.js"></script>
-<script src="/js/index.js"></script>

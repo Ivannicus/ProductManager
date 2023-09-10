@@ -26,6 +26,19 @@
     ]
   },
   {
+    "id": 3,
+    "title": "Pasta de Dientes Super Premium",
+    "description": "Pasta dental marca Colgate",
+    "code": "a3",
+    "price": 2300,
+    "status": true,
+    "stock": 12,
+    "category": "Higiene",
+    "thumbnail": [
+      "Sin imagen"
+    ]
+  },
+  {
     "id": 4,
     "title": "Cepillo de Dientes",
     "description": "Cepillo dental marca Colgate",
@@ -111,19 +124,6 @@
     "price": 6350,
     "status": true,
     "stock": 45,
-    "category": "Higiene",
-    "thumbnail": [
-      "Sin imagen"
-    ]
-  },
-  {
-    "id": 3,
-    "title": "Pasta de Dientes Super Premium",
-    "description": "Pasta dental marca Sensodine",
-    "code": "a3",
-    "price": 2300,
-    "status": true,
-    "stock": 12,
     "category": "Higiene",
     "thumbnail": [
       "Sin imagen"

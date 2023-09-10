@@ -1,9 +1,9 @@
 import express from "express";
-// import { uploader } from "../utils.js";
 const router = express.Router();
 
 router.use(express.json());
 router.use(express.urlencoded({extended: true}));
+import io from "../app.js";
 
 import ProductManager from '../ProductManager.js';
 const PM = new ProductManager;
@@ -39,11 +39,14 @@ router.post('/', async (req, res) => {
         if (Object.values(product).some(arg => arg === null || arg === "")) {
             res.status(400).send({status: "Error", error: "Empty or null arguments are not allowed"})
         } else{
-            const answer = await PM.addProduct(product.title, product.description, product.code, product.price, product.status, product.stock, product.category, product.thumbnails)
+            const answer = await PM.addProduct(product.title, product.description, product.code, product.price, product.status, product.stock, product.category, product.thumbnails);
+
             if (typeof answer === 'string') {
                 res.status(400).send({ status: "error", error: answer })
-            } else {
+            } else {              
                 res.status(201).send({ status: "Product Created", product: answer});
+                const products = await PM.getProducts();
+                io.emit('products', products);               
             }
         }
     }
@@ -60,7 +63,8 @@ router.put('/:pid', async (req, res) => {
             res.status(400).send({ status: "Error", error: answer })
         } else {
             res.status(201).send({ status: "Success", modifiedProduct: answer })
-
+            const products = await PM.getProducts();
+            io.emit('products', products);  
         }
     }
 })
@@ -72,6 +76,8 @@ router.delete('/:pid', async(req,res) => {
         res.status(400).send({status: "error", error: answer})
     } else{
         res.status(201).send({status: "Success", deletedProduct: answer});
+        const products = await PM.getProducts();
+        io.emit('products', products);  
     }
     
 })
