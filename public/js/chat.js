@@ -6,9 +6,9 @@ let chatBox = document.getElementById("chatBox");
 Swal.fire({
     title: "Identificate",
     input: "text",
-    text: "Ingresa tu nombre para identificarte en el chat",
+    text: "Ingresa tu correo para identificarte en el chat",
     inputValidator: (value) => {
-        return !value && "Necesitas escribir un nombre para continuar"
+        return !value && "Necesitas escribir un correo para continuar"
     },
     allowOutsideClick: false
 }).then(result => {
@@ -40,7 +40,8 @@ Swal.fire({
 chatBox.addEventListener('keyup', e => {
     if(e.key==="Enter") {
         if(chatBox.value.trim().length > 0) {
-            socket.emit("message", {user: user, message:chatBox.value});
+            const message = chatBox.value
+            socket.emit("message", {user: user, message: message});
             chatBox.value = "";
         }
     }

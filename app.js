@@ -3,6 +3,7 @@ import handlebars from 'express-handlebars'
 import __dirname from './utils.js';
 import {Server} from 'socket.io';
 import mongoose from 'mongoose';
+import { chatsModel } from './dao/models/chat.model.js';
 
 const app = express()
 const httpServer = app.listen(8080, () => console.log('Servidor corriendo en el puerto 8080'));
@@ -31,11 +32,23 @@ app.use('/api/carts', cartsRouter);
 app.use('/', viewRouter);
 
 let messages = [];
-io.on('connection', socket=>{
+io.on('connection', socket=> {
     console.log("New customer connected")
 
-    socket.on('message', data => {
+    socket.on('message', async data => {
         messages.push(data);
+        const user = data.user;
+        const message = data.message;
+        console.log(user, message);
+        try {
+            await chatsModel.create({
+                user,
+                message
+            });
+        } catch (error) {
+            console.log(error.message);
+        }
+        
         io.emit('messageLogs', messages);
     });
 
