@@ -8,3 +8,4 @@ socket.on('products', products => {
     });
     productsHTML.innerHTML = listOfProducts;
 })
+
