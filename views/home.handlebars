@@ -1,9 +1,25 @@
 <div>
    <h1>Listado de Productos</h1>
 
-   <ol>
+   <div>
+      <ol>
+         {{#each products}}
+         <li>{{this.title}} - {{this.description}} - {{this.code}} - {{this.price}} - {{this.stock}} - {{this.category}}
+         {{/each}}<br>
+         {{#if hasPrevPage}}
+         <a href="/?page={{prevPage}}&limit={{limit}}&sort={{sort}}"><button>Anterior</button></a>
+         {{/if}}
+      
+         {{#if hasNextPage}}
+         <a href="/?page={{nextPage}}&limit={{limit}}&sort={{sort}}"><button>Siguiente</button></a>
+         {{/if}}
+      </ol>
+   </div>
+
+   {{!-- <ol>
       {{#each products}}
-         <li>{{this.title}} - {{this.description}} - {{this.code}} - {{this.price}} - {{this.stock}} - {{this.category}}</li>
+      <li>{{this.title}} - {{this.description}} - {{this.code}} - {{this.price}} - {{this.stock}} - {{this.category}}
+      </li>
       {{/each}}
-   </ol>
+   </ol> --}}
 </div>

@@ -18,6 +18,7 @@ router.get('/', async (req, res) => {
         }
         products.splice(parseInt(limit), products.length - parseInt(limit));
         return res.send({status: "Success", products: products});
+        
     } catch (error) {
         console.log(error.message);
         res.status(500).send({error: error.message})
