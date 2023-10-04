@@ -2,7 +2,7 @@
    <h1>Listado de Productos</h1>
 
    <div>
-      <ol>
+      <ul>
          {{#each products}}
          <li>{{this.title}} - {{this.description}} - {{this.code}} - {{this.price}} - {{this.stock}} - {{this.category}}
          {{/each}}<br>
@@ -13,13 +13,7 @@
          {{#if hasNextPage}}
          <a href="/?page={{nextPage}}&limit={{limit}}&sort={{sort}}"><button>Siguiente</button></a>
          {{/if}}
-      </ol>
+         
+      </ul>
    </div>
-
-   {{!-- <ol>
-      {{#each products}}
-      <li>{{this.title}} - {{this.description}} - {{this.code}} - {{this.price}} - {{this.stock}} - {{this.category}}
-      </li>
-      {{/each}}
-   </ol> --}}
 </div>

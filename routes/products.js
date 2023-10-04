@@ -8,17 +8,21 @@ import io from "../app.js";
 
 router.get('/', async (req, res) => {
     try{
-        const products = await productsModel.find().lean();
-        const limit = req.query.limit;
-        if (!products){
-            return res.status(400).send({status: "Error", error: "No hay productos aún"})
+        const { limit = 10, page = 1, sort, query} = req.query;
+        const { docs, totalDocs, hasPrevPage, hasNextPage, nextPage, prevPage} = await productsModel.paginate({}, {limit, page, lean:true, sort});
+        const totalPages = Math.floor(totalDocs/limit)+1;
+
+        if (hasPrevPage && hasNextPage){
+            res.send({status: "Sucess", payload: docs, totalPages: totalPages, prevPage: prevPage, nextPage: nextPage, page: page, hasPrevPage: hasPrevPage, hasNextPage: hasNextPage, prevLink: `localhost8080/?page=${prevPage}&limit=${limit}`, nextLink: `localhost8080/?page=${nextPage}&limit=${limit}`})
+        } else if (hasPrevPage) {
+            res.send({status: "Sucess", payload: docs, totalPages: totalPages, prevPage: prevPage, nextPage: nextPage, page: page, hasPrevPage: hasPrevPage, hasNextPage: hasNextPage, prevLink: `localhost8080/?page=${prevPage}&limit=${limit}`, nextLink: null})
+        } else if(hasNextPage) {
+            res.send({status: "Sucess", payload: docs, totalPages: totalPages, prevPage: prevPage, nextPage: nextPage, page: page, hasPrevPage: hasPrevPage, hasNextPage: hasNextPage, prevLink: null, nextLink: `localhost8080/?page=${nextPage}&limit=${limit}`})
+        } else {
+            res.send({status: "Sucess", payload: docs, totalPages: totalPages, prevPage: prevPage, nextPage: nextPage, page: page, hasPrevPage: hasPrevPage, hasNextPage: hasNextPage, prevLink: null, nextLink: null})
         }
-        if(!limit){
-            return res.send({status: "Success", products: products});
-        }
-        products.splice(parseInt(limit), products.length - parseInt(limit));
-        return res.send({status: "Success", products: products});
         
+
     } catch (error) {
         console.log(error.message);
         res.status(500).send({error: error.message})

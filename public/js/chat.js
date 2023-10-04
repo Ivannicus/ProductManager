@@ -46,24 +46,3 @@ chatBox.addEventListener('keyup', e => {
         }
     }
 })
-
-// chatBox.addEventListener('keyup', async e =>  {
-//     if(e.key==="Enter") {
-//         if(chatBox.value.trim().length > 0) {
-//             const message = chatBox.value;
-//             socket.emit("message", {email: email, message: message});
-//             try { 
-//                 const chat = await chatsModel.create({
-//                     email,
-//                     message,
-//                 });
-//                 res.send({status: 'Sucess', chat: chat})
-//             } catch (error) {
-//                 console.log(error.message);
-//                 res.status(500).send({error: error.message})
-//             }
-            
-//             chatBox.value = "";
-//         }
-//     }
-// })
