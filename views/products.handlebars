@@ -1,0 +1,19 @@
+<div>
+   <h1>Listado de Productos</h1>
+
+   <div>
+      <ul>
+         {{#each products}}
+         <a href="/products/{{this._id}}"><li>{{this.title}} - {{this.price}}</a>
+         {{/each}}<br>
+         {{#if hasPrevPage}}
+         <a href="/products?page={{prevPage}}&limit={{limit}}&sort={{sort}}&query={{query}}"><button>Anterior</button></a>
+         {{/if}}
+      
+         {{#if hasNextPage}}
+         <a href="/products?page={{nextPage}}&limit={{limit}}&sort={{sort}}&query={{query}}"><button>Siguiente</button></a>
+         {{/if}}
+         
+      </ul>
+   </div>
+</div>

@@ -4,15 +4,13 @@
 
    <div>
       <ul>
+        {{#if products}}
         {{#each products}}
-            <li>{{this.title}} - {{this.description}} - {{this.code}} - {{this.price}} - {{this.stock}} - {{this.category}}
+            <li>{{this.product.title}} - {{this.product.description}} - {{this.product.code}} - {{this.product.price}} - {{this.product.stock}} - {{this.product.category}}
         {{/each}}<br>
-         {{!-- {{#if hasPrevPage}} --}}
-         {{!-- <a href="/?page={{prevPage}}&limit={{limit}}&sort={{sort}}"><button>Anterior</button></a>
-         {{/if}}
-      
-         {{#if hasNextPage}}
-         <a href="/?page={{nextPage}}&limit={{limit}}&sort={{sort}}"><button>Siguiente</button></a>
-         {{/if}} --}}
+        {{else}}
+            <h3>El carrito {{idCart}} está vacío</h3>
+        {{/if}}
+
       </ul>
    </div>

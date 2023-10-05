@@ -7,11 +7,11 @@
          <li>{{this.title}} - {{this.description}} - {{this.code}} - {{this.price}} - {{this.stock}} - {{this.category}}
          {{/each}}<br>
          {{#if hasPrevPage}}
-         <a href="/?page={{prevPage}}&limit={{limit}}&sort={{sort}}"><button>Anterior</button></a>
+         <a href="/?page={{prevPage}}&limit={{limit}}&sort={{sort}}&query={{query}}"><button>Anterior</button></a>
          {{/if}}
       
          {{#if hasNextPage}}
-         <a href="/?page={{nextPage}}&limit={{limit}}&sort={{sort}}"><button>Siguiente</button></a>
+         <a href="/?page={{nextPage}}&limit={{limit}}&sort={{sort}}&query={{query}}"><button>Siguiente</button></a>
          {{/if}}
          
       </ul>
