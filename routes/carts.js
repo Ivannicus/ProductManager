@@ -94,8 +94,23 @@ router.put('/:cid/products/:pid', async (req, res) => {
     //Deberá poder actualizar SOLO la cantidad de ejemplares el producto por cualquier cantidad pasada desde req.body
     const idCart = req.params.cid;
     const idProduct = req.params.pid;
+    const quantity = req.body;
+
     try {
         const cart = await cartsModel.find({ _id: idCart });
+
+        console.log(cart);
+        // const currentQuantity = await cartsModel.aggregate(
+        //     [
+        //         {
+        //             $match: {_id: idCart}
+        //         },
+        //         {
+        //             $match: {products: {product: idProduct}}
+        //         }
+        //     ]
+        // );
+        // console.log(currentQuantity)
         
     } catch (error) {
         console.log(error.message);

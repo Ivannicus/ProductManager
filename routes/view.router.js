@@ -8,10 +8,6 @@ const router = express.Router();
 router.get('/', async (req, res)=> {
     try{
         const { limit = 10, page = 1, sort, query = false} = req.query;
-
-
-        
-
         
         let sortType = 0;
         if (sort === "asc"){
@@ -86,25 +82,46 @@ router.get('/carts/:cid', async (req, res) => {
 
 router.get('/products', async (req, res)=> {
     try{
-        const { limit = 10, page = 1, sort, query} = req.query;
+        const { limit = 10, page = 1, sort, query = false} = req.query;
+        
+        let sortType = 0;
+        if (sort === "asc"){
+            sortType = 1
+        };
+        if (sort === "desc"){
+            sortType = -1
+        }
+        
+        if (query) {
+            const objQuery = JSON.parse('{'+query+'}');
+            const { docs, totalDocs, hasPrevPage, hasNextPage, nextPage, prevPage} = await productsModel.paginate(objQuery, {limit, page, lean:true, sort: {price: sortType}});
+            const products = docs;
+            res.render('products', {
+                products,
+                totalDocs,
+                hasNextPage,
+                hasPrevPage,
+                nextPage,
+                prevPage,
+                limit,
+                sort,
+                query
+            });
+        } else {
+            const { docs, totalDocs, hasPrevPage, hasNextPage, nextPage, prevPage} = await productsModel.paginate({}, {limit, page, lean:true, sort: {price: sortType}});
+            const products = docs;
+            res.render('products', {
+                products,
+                totalDocs,
+                hasNextPage,
+                hasPrevPage,
+                nextPage,
+                prevPage,
+                limit,
+                sort
+            });
+        }
 
-        const objQuery = JSON.parse('{'+query+'}')
-      
-        const { docs, totalDocs, hasPrevPage, hasNextPage, nextPage, prevPage} = await productsModel.paginate(objQuery, {limit, page, lean:true});
-  
-        const products = docs;
-
-        res.render('products', {
-            products,
-            totalDocs,
-            hasNextPage,
-            hasPrevPage,
-            nextPage,
-            prevPage,
-            limit,
-            sort,
-            query
-        });
     } catch (error){
         res.status(500).send({'error': error})
     }
