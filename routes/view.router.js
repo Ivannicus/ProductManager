@@ -5,7 +5,17 @@ import { cartsModel } from '../dao/models/cart.model.js';
 
 const router = express.Router();
 
-router.get('/', async (req, res)=> {
+const publicAccess = (req, res, next) => {
+    if (req.session.user) return res.redirect('/');
+    next();
+}
+
+const privateAccess = (req, res, next) => {
+    if(!req.session.user) return res.redirect('/login');
+    next();
+}
+
+router.get('/', privateAccess, async (req, res)=> {
     try{
         const { limit = 10, page = 1, sort, query = false} = req.query;
         
@@ -30,7 +40,8 @@ router.get('/', async (req, res)=> {
                 prevPage,
                 limit,
                 sort,
-                query
+                query,
+                user: req.session.user
             });
         } else {
             const { docs, totalDocs, hasPrevPage, hasNextPage, nextPage, prevPage} = await productsModel.paginate({}, {limit, page, lean:true, sort: {price: sortType}});
@@ -43,7 +54,8 @@ router.get('/', async (req, res)=> {
                 nextPage,
                 prevPage,
                 limit,
-                sort
+                sort,
+                user: req.session.user
             });
         }
 
@@ -140,5 +152,16 @@ router.get('/products/:pid', async (req, res)=> {
     }
 
 });
+
+
+
+router.get('/register', publicAccess, (req, res) => {
+    res.render('register');
+});
+
+router.get('/login', publicAccess, (req, res) => {
+    res.render('login');
+});
+
 
 export default router;
