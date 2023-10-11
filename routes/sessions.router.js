@@ -10,14 +10,14 @@ router.post('/register', async (req, res)=> {
         const { first_name, last_name, email, age, password } = req.body;
         const exists = await usersModel.findOne({ email });
 
-        const is_admin = false
+        let is_admin = false
 
         if (exists) {
             return res.status(400).send({status: "Error", message: "User already exist"})
         }
 
         if (email === "adminCoder@coder.com" && password === "adminCod3r123"){
-            is_admin = true
+            is_admin = true;
         } 
         await usersModel.create({
             first_name,
@@ -47,7 +47,8 @@ router.post('/login', async (req, res) => {
         req.session.user = {
             name: `${user.first_name} ${user.last_name}`,
             email: user.email,
-            age: user.age
+            age: user.age,
+            is_admin: user.is_admin
         }
 
         res.send({ status: "Success", message: "Login Success"})

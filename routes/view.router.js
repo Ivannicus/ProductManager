@@ -26,7 +26,6 @@ router.get('/', privateAccess, async (req, res)=> {
         if (sort === "desc"){
             sortType = -1
         }
-        
         if (query) {
             const objQuery = JSON.parse('{'+query+'}');
             const { docs, totalDocs, hasPrevPage, hasNextPage, nextPage, prevPage} = await productsModel.paginate(objQuery, {limit, page, lean:true, sort: {price: sortType}});
