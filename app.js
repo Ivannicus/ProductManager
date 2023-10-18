@@ -6,6 +6,8 @@ import mongoose from 'mongoose';
 import { chatsModel } from './dao/models/chat.model.js';
 import session from "express-session";
 import MongoStore from 'connect-mongo';
+import passport from 'passport';
+import initializePassport from './config/passport.config.js';
 
 const app = express()
 const httpServer = app.listen(8080, () => console.log('Servidor corriendo en el puerto 8080'));
@@ -40,6 +42,10 @@ app.use(session({
     resave: true,
     saveUninitialized: true,
 }));
+
+initializePassport();
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use('/api/products', productsRouter);
 app.use('/api/carts', cartsRouter);

@@ -1,68 +1,37 @@
 // Rutas para trabajar con servicios de sessions
 import { Router } from "express";
-import usersModel from "../dao/models/users.model.js";
-import { createHash, isValidPassword } from "../utils.js";
+import passport from "passport";
 
 const router = Router();
 
 // Primer Servicio para registrar el usuario
-router.post('/register', async (req, res)=> {
-    try{
-        const { first_name, last_name, email, age, password } = req.body;
-        const exists = await usersModel.findOne({ email });
-
-        let is_admin = false
-
-        if (exists) {
-            return res.status(400).send({status: "Error", message: "User already exist"})
-        }
-
-        if (email === "adminCoder@coder.com" && password === "adminCod3r123"){
-            is_admin = true;
-        } 
-        await usersModel.create({
-            first_name,
-            last_name,
-            email,
-            age,
-            password: createHash(password),
-            is_admin
-        });
-
-        res.status(201).send({status: "Success", message: "User registered"})
-    } catch (error) {
-        res.status(500).send({status: 'error', message: error.message})
-    }
+router.post('/register', passport.authenticate('register', {failureRedirect: '/failregister'}), async (req, res)=> {
+    res.status(201).send({status: "Success", message: "User registered"})
 });
+
+router.get('/failregister', async(req, res) => {
+    console.log("Register Failed");
+    res.send({error:"Failed"})
+})
 
 // Segundo Servicio para loguear el usuario
-router.post('/login', async (req, res) => {
-    try{
-
-        const { email, password } = req.body;
-        const user = await usersModel.findOne({ email });
-
-        if(!user){
-            return res.status(400).send({status: "Error", message: "Incorrect credentials"})
-        }
-       
-        if(!isValidPassword(user, password)){
-            return res.status(401).send({status: "Error", message: "Incorrect credentials"})
-        }
-
-        req.session.user = {
-            name: `${user.first_name} ${user.last_name}`,
-            email: user.email,
-            age: user.age,
-            is_admin: user.is_admin
-        }
-        console.log(4)
-        res.send({ status: "Success", message: "Login Success"})
-
-    } catch (error) {
-        res.status(500).send({status: 'error', message: error.message})
+router.post('/login', passport.authenticate('login', {failureRedirect: '/faillogin'}) ,async (req, res) => {
+    if(!req.user) {
+        return res.status(400).send({status: "Error", error: "Invalid Credentials"})
     }
+
+    req.session.user = {
+        first_name: req.user.first_name,
+        last_name: req.user.last_name,
+        age: req.user.age,
+        email: req.user.email
+    }
+    res.send({status: 'Success', payload: req.user})
 });
+
+router.get('/failedlogin', (req, res) => {
+    res.send({error:'Failed Login'})
+})
 
 router.get('/logout', (req, res) => {
     req.session.destroy(error => {
