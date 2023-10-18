@@ -1,6 +1,7 @@
 // Rutas para trabajar con servicios de sessions
 import { Router } from "express";
-import usersModel from "../dao/models/users.model.js"
+import usersModel from "../dao/models/users.model.js";
+import { createHash, isValidPassword } from "../utils.js";
 
 const router = Router();
 
@@ -24,7 +25,7 @@ router.post('/register', async (req, res)=> {
             last_name,
             email,
             age,
-            password,
+            password: createHash(password),
             is_admin
         });
 
@@ -37,11 +38,16 @@ router.post('/register', async (req, res)=> {
 // Segundo Servicio para loguear el usuario
 router.post('/login', async (req, res) => {
     try{
+
         const { email, password } = req.body;
-        const user = await usersModel.findOne({ email, password});
+        const user = await usersModel.findOne({ email });
 
         if(!user){
             return res.status(400).send({status: "Error", message: "Incorrect credentials"})
+        }
+       
+        if(!isValidPassword(user, password)){
+            return res.status(401).send({status: "Error", message: "Incorrect credentials"})
         }
 
         req.session.user = {
@@ -50,7 +56,7 @@ router.post('/login', async (req, res) => {
             age: user.age,
             is_admin: user.is_admin
         }
-
+        console.log(4)
         res.send({ status: "Success", message: "Login Success"})
 
     } catch (error) {
