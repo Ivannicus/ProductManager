@@ -4,7 +4,6 @@ import passport from "passport";
 
 const router = Router();
 
-// Primer Servicio para registrar el usuario
 router.post('/register', passport.authenticate('register', {failureRedirect: '/failregister'}), async (req, res)=> {
     res.status(201).send({status: "Success", message: "User registered"})
 });
@@ -14,7 +13,6 @@ router.get('/failregister', async(req, res) => {
     res.send({error:"Failed"})
 })
 
-// Segundo Servicio para loguear el usuario
 router.post('/login', passport.authenticate('login', {failureRedirect: '/faillogin'}) ,async (req, res) => {
     if(!req.user) {
         return res.status(400).send({status: "Error", error: "Invalid Credentials"})
@@ -31,7 +29,15 @@ router.post('/login', passport.authenticate('login', {failureRedirect: '/faillog
 
 router.get('/failedlogin', (req, res) => {
     res.send({error:'Failed Login'})
+});
+
+router.get('/github', passport.authenticate('github', {scope:['user:email']}), async(req,res)=>{});
+
+router.get('/githubcallback', passport.authenticate('github', {failureRedirect:'/login'}), async (req,res) => {
+    req.session.user = req.user;
+    res.redirect('/')
 })
+
 
 router.get('/logout', (req, res) => {
     req.session.destroy(error => {
